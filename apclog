@@ -1,0 +1,15 @@
+<?php
+
+
+try{
+  spl_autoload_register('autoload');
+  $action = Apclog::createAction($argv);
+  $action->run();
+} catch(Exception $e) {
+  fputs(STDERR, $e->getMessage().PHP_EOL);
+}
+
+
+function autoload($class){
+  include 'classes/'.str_replace('_', '/', $class).'.php';
+}
