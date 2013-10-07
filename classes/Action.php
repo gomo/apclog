@@ -5,6 +5,8 @@ abstract class Action
 
   private $_action;
 
+  private $_base_path;
+
   protected $_usage_string = '';
 
   public function __construct($action, array $params){
@@ -35,13 +37,14 @@ abstract class Action
     return $args;
   }
 
-  public function run(){
+  public function run($base_path){
+    $this->_base_path = $base_path;
     $this->_run();
   }
 
   private function _getDataPath($key)
   {
-    return 'data/'.$key.'.php';
+    return $this->_base_path.'/data/'.$key.'.php';
   }
 
   protected function _saveData($name, $data)

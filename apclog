@@ -5,7 +5,7 @@ ini_set('error_reporting', E_ALL);
 try{
   spl_autoload_register('autoload');
   $action = Apclog::createAction($argv);
-  $action->run();
+  $action->run(dirname(__FILE__));
 } catch(Exception $e) {
   fputs(STDERR, $e->getMessage().PHP_EOL);
 }
