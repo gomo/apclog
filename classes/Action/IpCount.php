@@ -8,35 +8,19 @@ class Action_IpCount extends Action
     $path = $this->_getParam(0);
     $greps = $this->_getParams(1);
 
-    $grep_cmd = '';
-    foreach($greps as $grep)
-    {
-      $grep_cmd .= sprintf("grep -E '%s' | ", $grep);
-    }
-
-    $resp = $this->_execCmd("cat %s | %s cut -d ' ' -f 1 | sort | uniq -c", $path, $grep_cmd);
+    $data = new Data_IpCount();
 
     $data_name = 'Action_IpCount.ip_list';
     $exists = $this->_getSavedData($data_name, array());
     $new = array();
     $old = array();
-    foreach(explode(PHP_EOL, $resp) as $row)
+    foreach($data->get($path, $greps) as $data)
     {
-      list($count, $ip) = explode(' ', trim($row));
-
-      if(!$ip){
-        continue;
-      }
-
-      if($count <= 2){
-        continue;
-      }
-
-      if(!in_array($ip, $exists)){
-        $exists[] = $ip;
-        $new[] = sprintf("%d\t: %s", $count, $ip);
+      if(!in_array($data['ip'], $exists)){
+        $exists[] = $data['ip'];
+        $new[] = sprintf("%d\t: %s", $data['count'], $data['ip']);
       } else {
-        $old[] = sprintf("%d\t: %s", $count, $ip);
+        $old[] = sprintf("%d\t: %s", $data['count'], $data['ip']);
       }
     }
 
