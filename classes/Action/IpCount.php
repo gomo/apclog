@@ -10,7 +10,7 @@ class Action_IpCount extends Action
 
     $data = new Data_IpCount();
 
-    $data_name = 'Action_IpCount.ip_list';
+    $data_name = 'Action_IpCount.ip_list.'.sha1($path.implode(',', $greps));
     $exists = $this->_getSavedData($data_name, array());
     $new = array();
     $old = array();
