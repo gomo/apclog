@@ -34,14 +34,17 @@ class Action_IpCount extends Action
 
       if(!in_array($ip, $exists)){
         $exists[] = $ip;
-        $new[] = sprintf('%s : %d回', $ip, $count);
+        $new[] = sprintf("%d\t: %s", $count, $ip);
       } else {
-        $old[] = sprintf('%s : %d回', $ip, $count);
+        $old[] = sprintf("%d\t: %s", $count, $ip);
       }
     }
 
     $this->_saveData($data_name, $exists);
 
-    var_dump($new, $old);
+    $this->_echoStd(array(
+      array('name' => 'Exists', 'values' => $old),
+      array('name' => 'New', 'values' => $new),
+    ));
   }
 }

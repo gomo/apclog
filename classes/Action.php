@@ -62,6 +62,20 @@ abstract class Action
     return $cash_data;
   }
 
+  protected function _echoStd($data)
+  {
+    $result = '';
+    foreach($data as $val)
+    {
+      $result .= $val['name'].PHP_EOL;
+      $result .= implode(PHP_EOL, $val['values']);
+      $result .= PHP_EOL;
+      $result .= PHP_EOL;
+    }
+
+    echo $result;
+  }
+
   protected function _execCmd()
   {
     $args = func_get_args();
