@@ -14,7 +14,7 @@ class Action_IpCount extends Action
     $exists = $this->_getSavedData($data_name, array());
     $new = array();
     $old = array();
-    foreach($data->get($path, $greps) as $data)
+    foreach($data->get($path, $greps, 2) as $data)
     {
       if(!in_array($data['ip'], $exists)){
         $exists[] = $data['ip'];
@@ -24,7 +24,9 @@ class Action_IpCount extends Action
       }
     }
 
-    $this->_saveData($data_name, $exists);
+    if(!$this->_hasOption('n')){
+      $this->_saveData($data_name, $exists);
+    }
 
     $this->_echoStd(array(
       array('name' => 'Exists', 'values' => $old),

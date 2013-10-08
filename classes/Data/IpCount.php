@@ -1,7 +1,7 @@
 <?php
 class Data_IpCount extends Data
 {
-  public function get($log_path, $greps)
+  public function get($log_path, $greps, $min)
   {
     $grep_cmd = '';
     foreach($greps as $grep)
@@ -20,7 +20,7 @@ class Data_IpCount extends Data
         continue;
       }
 
-      if($count <= 2){
+      if($count <= $min){
         continue;
       }
 

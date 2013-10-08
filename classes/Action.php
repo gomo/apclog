@@ -3,15 +3,23 @@ abstract class Action
 {
   private $_params;
 
+  private $_options;
+
   private $_action;
 
   private $_base_path;
 
   protected $_usage_string = '';
 
-  public function __construct($action, array $params){
+  public function __construct($action, array $params, array $options){
     $this->_params = $params;
-    $this->_action;
+    $this->_options = $options;
+    $this->_action = $action;
+  }
+
+  protected function _hasOption($key)
+  {
+    return in_array($key, $this->_options);
   }
 
   protected function _getParam($key, $default = null)
