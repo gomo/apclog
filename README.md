@@ -4,24 +4,30 @@
 
 ### IpCount
 ```
-php apclog IpCount /path/to/logfile[ 'grep regex'...]
+/usr/local/bin/php apclog IpCount /path/to/logfile[ 'grep regex'...]
 ```
 
 IP毎のカウントを集計して表示。毎回IPアドレスのリストをキャッシュし新しく現れたものが分かるように出力。
 
 #### option
 -n IP存在確認用のキャッシュデータを更新しない。
+-m1 出力するカウントの最小値
 
 #### ex
 
 for google
 ```
-php apclog IpCount access.log 'GET / HTTP/1\.1' 'www\.google\.co\.jp'
+/usr/local/bin/php apclog IpCount access.log 'GET / HTTP/1\.1' 'www\.google\.co\.jp'
+```
+
+option
+```
+/usr/local/bin/php apclog -m5 -n IpCount access.log 'GET / HTTP/1\.1' 'www\.google\.co\.jp'
 ```
 
 for yahoo
 ```
-php apclog IpCount access.log 'GET / HTTP/1\.1' 'search\.yahoo\.co\.jp'
+/usr/local/bin/php apclog IpCount access.log 'GET / HTTP/1\.1' 'search\.yahoo\.co\.jp'
 ```
 
 Result
@@ -40,21 +46,24 @@ New
 
 ### IpReport
 ```
-php apclog IpReport /path/to/logfile[ 'grep regex'...]
+/usr/local/bin/php apclog IpReport /path/to/logfile[ 'grep regex'...]
 ```
 
 アクセスの多かったIPアドレスからの詳細ログをレポートします。
+
+#### option
+-m1 出力するカウントの最小値
 
 #### ex
 
 for google
 ```
-php apclog IpReport access.log 'GET / HTTP/1\.1' 'www\.google\.co\.jp'
+/usr/local/bin/php apclog IpReport access.log 'GET / HTTP/1\.1' 'www\.google\.co\.jp'
 ```
 
 for yahoo
 ```
-php apclog IpReport access.log 'GET / HTTP/1\.1' 'search\.yahoo\.co\.jp'
+/usr/local/bin/php apclog IpReport access.log 'GET / HTTP/1\.1' 'search\.yahoo\.co\.jp'
 ```
 
 Result

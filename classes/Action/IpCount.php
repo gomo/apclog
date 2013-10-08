@@ -3,6 +3,8 @@ class Action_IpCount extends Action
 {
   protected $_usage_string = '/path/to/log.file grep-regex[ grep-regex...]';
 
+  protected $_option_string = 'm:n';
+
   protected function _run()
   {
     $path = $this->_getParam(0);
@@ -14,7 +16,7 @@ class Action_IpCount extends Action
     $exists = $this->_getSavedData($data_name, array());
     $new = array();
     $old = array();
-    foreach($ip_counter->get($path, $greps, 2) as $data)
+    foreach($ip_counter->get($path, $greps, $this->_getOption('m', 1)) as $data)
     {
       if(!in_array($data['ip'], $exists)){
         $exists[] = $data['ip'];

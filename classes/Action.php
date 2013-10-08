@@ -11,15 +11,26 @@ abstract class Action
 
   protected $_usage_string = '';
 
-  public function __construct($action, array $params, array $options){
-    $this->_params = $params;
-    $this->_options = $options;
+  protected $_option_string = '';
+
+  public function __construct($action, array $params){
+    $this->_params = array_merge($params);
+    $this->_options = getopt($this->_option_string);
     $this->_action = $action;
   }
 
   protected function _hasOption($key)
   {
-    return in_array($key, $this->_options);
+    return isset($this->_options[$key]);
+  }
+
+  protected function _getOption($key, $default = null)
+  {
+    if($this->_hasOption($key)){
+      return $this->_options[$key];
+    } else {
+      $default;
+    }
   }
 
   protected function _getParam($key, $default = null)

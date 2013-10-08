@@ -1,6 +1,10 @@
 <?php
 class Action_IpReport extends Action
 {
+  protected $_usage_string = '/path/to/log.file grep-regex[ grep-regex...]';
+
+  protected $_option_string = 'm:';
+
   protected function _run()
   {
     $path = $this->_getParam(0);
@@ -10,7 +14,7 @@ class Action_IpReport extends Action
     $ip_report = new Data_IpReport();
 
     $result = array();
-    foreach($ip_counter->get($path, $greps, 5) as $data)
+    foreach($ip_counter->get($path, $greps, $this->_getOption('m', 1)) as $data)
     {
       $gr = $greps;
       $gr[] = $data['ip'];

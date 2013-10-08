@@ -15,11 +15,9 @@ class Data_IpCount extends Data
         continue;
       }
 
-      if($count <= $min){
-        continue;
+      if($count >= $min){
+        $result[] = array('ip' => $ip, 'count' => $count);
       }
-
-      $result[] = array('ip' => $ip, 'count' => $count);
     }
 
     return $result;
