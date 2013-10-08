@@ -8,13 +8,13 @@ class Action_IpCount extends Action
     $path = $this->_getParam(0);
     $greps = $this->_getParams(1);
 
-    $data = new Data_IpCount();
+    $ip_counter = new Data_IpCount();
 
     $data_name = 'Action_IpCount.ip_list.'.sha1($path.implode(',', $greps));
     $exists = $this->_getSavedData($data_name, array());
     $new = array();
     $old = array();
-    foreach($data->get($path, $greps, 2) as $data)
+    foreach($ip_counter->get($path, $greps, 2) as $data)
     {
       if(!in_array($data['ip'], $exists)){
         $exists[] = $data['ip'];
